@@ -16,9 +16,9 @@
  */
 
 #include "IdleShutdown.h"
-#include "World.h"
-#include "Player.h"
+
 #include "ScriptMgr.h"
+#include "Player.h"
 
 // Add player scripts
 class IdleShutdownPlayer : public PlayerScript
@@ -26,14 +26,14 @@ class IdleShutdownPlayer : public PlayerScript
 public:
     IdleShutdownPlayer() : PlayerScript("IdleShutdownPlayer") { }
 
-    void OnLogin(Player* /*player*/) override
+    void OnLogin(Player* player) override
     {
-        sIS->OnLogin();
+        sIS->OnLogin(player);
     }
 
-    void OnLogout(Player* /*player*/) override
+    void OnLogout(Player* player) override
     {
-        sIS->OnLogout();
+        sIS->OnLogout(player);
     }
 };
 

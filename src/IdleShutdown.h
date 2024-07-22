@@ -18,16 +18,15 @@
 #ifndef _IDLE_SHUTDOWN_H
 #define _IDLE_SHUTDOWN_H
 
-#include "World.h"
-#include "Common.h"
+#include "Player.h"
 
 class IdleShutdown {
 
 public:
     static IdleShutdown* instance();
 
-    void OnLogin();
-    void OnLogout();
+    void OnLogin(Player* player);
+    void OnLogout(Player* player);
 
 private:
     bool _isEnableModule = true;
