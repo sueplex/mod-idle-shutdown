@@ -1,0 +1,22 @@
+[worldserver]
+
+########################################
+# IdleShutdown configuration
+########################################
+#
+#    IdleShutdown.Enable
+#        Description: Enable idle shutdown
+#        Default:     0 - Disabled
+#                     1 - Enabled
+#
+
+IdleShutdown.Enable = 1
+
+#
+#    IdleShutdown.ShutdownTimeout
+#        Description: time in seconds before idle shutdown
+#        Default:     0 - Disabled
+#                     1 - Enabled
+#
+
+IdleShutdown.Timeout = 900

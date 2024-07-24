@@ -16,6 +16,7 @@
  */
 
 #include "IdleShutdown.h"
+#include "Config.h"
 #include "ScriptMgr.h"
 #include "Player.h"
 #include "World.h"
@@ -27,9 +28,21 @@ IdleShutdown* IdleShutdown::instance()
     return &instance;
 }
 
+bool IdleShutdown::Initialize()
+{
+    enabled = sConfigMgr->GetOption<bool>("IdleShutdown.Enable", true);
+    if (!enabled)
+    {
+        return false;
+    }
+
+    shutdownTimeout = sConfigMgr->GetOption<uint32>("IdleShutdown.Timeout");
+    return true;
+}
+
 void IdleShutdown::OnLogin(Player* player)
 {
-    if (!_isEnableModule || player->GetSession()->GetRemoteAddress() == "bot")
+    if (!enabled || player->GetSession()->GetRemoteAddress() == "bot")
         return;
 
 
@@ -38,11 +51,9 @@ void IdleShutdown::OnLogin(Player* player)
 
 void IdleShutdown::OnLogout(Player* player)
 {
-
-    // If module disable, why do the update? hah
-    if (!_isEnableModule || player->GetSession()->GetRemoteAddress() == "bot")
+    if (!enabled || player->GetSession()->GetRemoteAddress() == "bot")
         return;
 
     if (sWorld->GetActiveAndQueuedSessionCount() == 0)
-        sWorld->ShutdownServ(600, SHUTDOWN_MASK_IDLE, SHUTDOWN_EXIT_CODE, "server idle");
+        sWorld->ShutdownServ(shutdownTimeout, SHUTDOWN_MASK_IDLE, SHUTDOWN_EXIT_CODE, "server idle");
 }

@@ -27,10 +27,10 @@ public:
 
     void OnLogin(Player* player);
     void OnLogout(Player* player);
+    bool Initialize();
 
-private:
-    bool _isEnableModule = true;
-
+    bool enabled;
+    uint32 shutdownTimeout;
 };
 
 #define sIS IdleShutdown::instance()

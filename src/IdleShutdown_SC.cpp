@@ -19,6 +19,7 @@
 
 #include "ScriptMgr.h"
 #include "Player.h"
+#include "World.h"
 
 // Add player scripts
 class IdleShutdownPlayer : public PlayerScript
@@ -37,8 +38,22 @@ public:
     }
 };
 
+// Add World scripts
+class IdleShutdownWorld : public WorldScript
+{
+public:
+    IdleShutdownWorld() : WorldScript("IdleShutdownWorld") {}
+
+    void OnBeforeWorldInitialized() override
+    {
+        sIS->Initialize();
+    }
+}
+
+
 // Add all scripts in one
 void AddIdleShutdownScripts()
 {
     new IdleShutdownPlayer();
+    new IdleShutdownWorld();
 }
