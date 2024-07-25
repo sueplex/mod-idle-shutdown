@@ -19,4 +19,4 @@ IdleShutdown.Enable = 1
 #                     1 - Enabled
 #
 
-IdleShutdown.Timeout = 900
+IdleShutdown.ShutdownTimeout = 900

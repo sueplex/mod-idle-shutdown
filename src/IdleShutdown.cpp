@@ -36,7 +36,7 @@ bool IdleShutdown::Initialize()
         return false;
     }
 
-    shutdownTimeout = sConfigMgr->GetOption<uint32>("IdleShutdown.Timeout", 600);
+    shutdownTimeout = sConfigMgr->GetOption<uint32>("IdleShutdown.ShutdownTimeout", 600);
     return true;
 }
 
@@ -55,5 +55,11 @@ void IdleShutdown::OnLogout(Player* player)
         return;
 
     if (sWorld->GetActiveAndQueuedSessionCount() == 0)
-        sWorld->ShutdownServ(shutdownTimeout, SHUTDOWN_MASK_IDLE, SHUTDOWN_EXIT_CODE, "server idle");
+        if (shutdownTimeout > 0) {
+            sWorld->ShutdownServ(shutdownTimeout, SHUTDOWN_MASK_IDLE, SHUTDOWN_EXIT_CODE, "server idle");
+            return;
+        }
+
+        sWorld->ShutdownServ(600, SHUTDOWN_MASK_IDLE, SHUTDOWN_EXIT_CODE, "server idle");
+
 }
