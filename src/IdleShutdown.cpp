@@ -36,7 +36,7 @@ bool IdleShutdown::Initialize()
         return false;
     }
 
-    shutdownTimeout = sConfigMgr->GetOption<uint32>("IdleShutdown.Timeout");
+    shutdownTimeout = sConfigMgr->GetOption<uint32>("IdleShutdown.Timeout", 600);
     return true;
 }
 

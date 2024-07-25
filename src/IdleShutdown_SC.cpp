@@ -48,7 +48,7 @@ public:
     {
         sIS->Initialize();
     }
-}
+};
 
 
 // Add all scripts in one
